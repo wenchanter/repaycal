@@ -36,4 +36,4 @@ localhost:8080
 ```
 
 
-[TIME_LOG]()
+[TIME_LOG](https://github.com/wenchanter/repaycal/blob/main/TIME_LOG.md)
