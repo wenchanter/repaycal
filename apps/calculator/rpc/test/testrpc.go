@@ -25,7 +25,7 @@ func TestCalculator_Calculate(t *testing.T) {
 
 	// 3. 发起请求测试
 	resp, err := rpcClient.CalculatePMT(context.Background(), &calculator.PMTRequest{
-		LoanAmount:       100000,
+		LoanAmount:       160000,
 		InterestRate:     45, // 比如代表 4.5%
 		NumberOfPayments: 12,
 	})

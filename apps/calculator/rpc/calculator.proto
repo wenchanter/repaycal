@@ -25,6 +25,6 @@ message BalloonResponse {
 */
 
 service Calculate {
-  rpc calculatePMT(PMTRequest) returns(PMTResponse);
-  // rpc calculateBalloon(BalloonRequest) returns(BalloonResponse);
+  rpc CalculatePMT(PMTRequest) returns(PMTResponse);
+  // rpc CalculateBalloon(BalloonRequest) returns(BalloonResponse);
 }

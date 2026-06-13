@@ -140,7 +140,7 @@ const file_calculator_proto_rawDesc = "" +
 	"\vPMTResponse\x12+\n" +
 	"\x11monthly_repayment\x18\x01 \x01(\x03R\x10monthlyRepayment2L\n" +
 	"\tCalculate\x12?\n" +
-	"\fcalculatePMT\x12\x16.calculator.PMTRequest\x1a\x17.calculator.PMTResponseB\x0eZ\f./calculatorb\x06proto3"
+	"\fCalculatePMT\x12\x16.calculator.PMTRequest\x1a\x17.calculator.PMTResponseB\x0eZ\f./calculatorb\x06proto3"
 
 var (
 	file_calculator_proto_rawDescOnce sync.Once
@@ -160,8 +160,8 @@ var file_calculator_proto_goTypes = []any{
 	(*PMTResponse)(nil), // 1: calculator.PMTResponse
 }
 var file_calculator_proto_depIdxs = []int32{
-	0, // 0: calculator.Calculate.calculatePMT:input_type -> calculator.PMTRequest
-	1, // 1: calculator.Calculate.calculatePMT:output_type -> calculator.PMTResponse
+	0, // 0: calculator.Calculate.CalculatePMT:input_type -> calculator.PMTRequest
+	1, // 1: calculator.Calculate.CalculatePMT:output_type -> calculator.PMTResponse
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

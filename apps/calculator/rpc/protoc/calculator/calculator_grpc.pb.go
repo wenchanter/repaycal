@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Calculate_CalculatePMT_FullMethodName = "/calculator.Calculate/calculatePMT"
+	Calculate_CalculatePMT_FullMethodName = "/calculator.Calculate/CalculatePMT"
 )
 
 // CalculateClient is the client API for Calculate service.
@@ -112,7 +112,7 @@ var Calculate_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*CalculateServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "calculatePMT",
+			MethodName: "CalculatePMT",
 			Handler:    _Calculate_CalculatePMT_Handler,
 		},
 	},
