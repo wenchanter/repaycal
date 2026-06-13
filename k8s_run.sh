@@ -10,6 +10,17 @@ echo "===================================================="
 # 1. Check for kubectl connectivity
 echo ""
 echo "[1/4] Checking Kubernetes connectivity..."
+if ! docker info &> /dev/null; then
+    echo "❌ Error: Docker daemon is not running!"
+    echo "----------------------------------------------------"
+    echo "💡 How to fix this:"
+    echo "   1. Please open Docker Desktop (Mac/Windows) or start Docker service (Linux)."
+    echo "   2. Wait until the Docker icon turns green (Running)."
+    echo "   3. Re-run this script: ./k8s_run.sh"
+    echo "----------------------------------------------------"
+    exit 1
+fi
+
 if ! kubectl cluster-info &> /dev/null; then
     echo "X Error: Cannot connect to Kubernetes. Please ensure Docker Desktop/Minikube is running."
     exit 1

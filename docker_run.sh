@@ -21,6 +21,23 @@ if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/
 fi
 echo "Ready: Docker environment check passed!"
 
+if ! docker info &> /dev/null; then
+    echo "❌ Error: Docker daemon is not running!"
+    echo "----------------------------------------------------"
+    echo "💡 How to fix this:"
+    echo "   1. Please open Docker Desktop (Mac/Windows) or start Docker service (Linux)."
+    echo "   2. Wait until the Docker icon turns green (Running)."
+    echo "   3. Re-run this script: ./docker_run.sh"
+    echo "----------------------------------------------------"
+    exit 1
+fi
+
+if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null; then
+    echo "❌ Error: docker-compose is not installed. Please configure your Docker environment."
+    exit 1
+fi
+echo "✅ Ready: Docker environment check passed!"
+
 # 2. Cleanup: Remove potential leftover containers from previous runs (Idempotency)
 echo ""
 echo "[2/4] Cleaning up existing container remnants..."

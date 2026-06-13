@@ -9,16 +9,14 @@
 }
 ```
 
-
-## Deployment  
-**Note**
+## Local Deployment  
+**Note**  
 this project uses etcd and postgresql, so it will start a etcd and postgresql instance in Docker or k8s
 
 ### docker run
 ```shell
 bash docker_run.sh
 ```
-
 
 Then please access
 ```plantuml
@@ -30,7 +28,7 @@ localhost:8080
 bash k8s_run.sh
 ```
 
-Note: 
+**Note** 
 1. this shell has only been tested on a local Docker Desktop's k8s cluster
 2. It is a ClusterIP type, please use the command below for Port-forward 
 ```plantuml
