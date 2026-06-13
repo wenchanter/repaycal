@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package calculator;
+
+option go_package = "./calculator";
+
+message PMTRequest {
+  int64 loan_amount = 1;
+  int32  interest_rate = 2;
+  int32  number_of_payments = 3;
+}
+
+message PMTResponse {
+  int64 monthly_repayment = 1;
+}
+
+/*
+message BalloonRequest {
+  // Balloon request param
+}
+
+message BalloonResponse {
+  // Balloon response param
+}
+*/
+
+service Calculate {
+  rpc calculatePMT(PMTRequest) returns(PMTResponse);
+  // rpc calculateBalloon(BalloonRequest) returns(BalloonResponse);
+}

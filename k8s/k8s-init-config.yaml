@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pg-init-sql       # 👈 这个名字必须叫 pg-init-sql，和 Job 里面声明的名字对齐
+  namespace: default
+data:
+  01_schema.sql: |        # 👈 这里的名字对应你要生成的 SQL 文件名
+    -- 确保使用的是正确的业务数据库
+    \c loandb;
+
+    -- 创建贷款日志表
+    CREATE TABLE IF NOT EXISTS pmt_log (
+        id SERIAL PRIMARY KEY,
+        loan_amount BIGINT NOT NULL,
+        interest_rate BIGINT NOT NULL,
+        number_of_payments INT NOT NULL,
+        monthly_repayment BIGINT NOT NULL,
+        created_at TIMESTAMP DEFAULT NOW()
+    );
+
+    -- 创建索引提升查询效率
+    CREATE INDEX IF NOT EXISTS idx_pmt_log_created_at_desc ON pmt_log (created_at DESC);

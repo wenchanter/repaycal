@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # PostgreSQL
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass123
+      POSTGRES_DB: loandb
+    ports:
+      - "5432:5432"
+    volumes:
+      # 物理落盘：防止容器重启后数据丢失
+      - pgdata:/var/lib/postgresql
+      # 核心自动化：将初始化 SQL 目录挂载到 Docker 指定的 init 目录下
+      - ./initdb:/docker-entrypoint-initdb.d
+    networks:
+      - loan_net
+    healthcheck: # 健康检查，确保 etcd 或 Go 服务可以等待 pg 完全就绪
+      test: ["CMD-SHELL", "pg_isready -U postgres -d loandb"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+
+  # etcd
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.12
+    container_name: etcd
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes # 开发环境允许匿名访问
+      - ETCD_ENABLE_V2=true
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+    healthcheck: # etcd 健康检查，确保其可以正常响应它的访问请求
+      test: ["CMD", "etcdctl", "endpoint", "health"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+    networks:
+      - loan_net
+
+  # 3. Go Service
+  calculator-rpc:
+    build:
+      context: . # 指向总根目录，确保 Dockerfile 的 COPY 路径可达
+    container_name: calculator_rpc
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy # 只有等 pg 完全建好表并健康了，Go 才启动
+      etcd:
+        condition: service_healthy # 只有等 etcd 准备好了，Go 才启动注册
+    networks:
+      - loan_net
+
+volumes:
+  pgdata:
+
+networks:
+  loan_net:
+    driver: bridge

@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pg-init-job
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: wait-for-postgres
+          image: alpine:latest
+          # 👈 探测目标改成了 postgres
+          command: ["sh", "-c", "until nc -z -v -w3 postgres 5432; do echo 'Waiting for Postgres...'; sleep 2; done;"]
+      containers:
+        - name: psql-runner
+          image: postgres:latest
+          env:
+            - name: PGPASSWORD
+              value: "pass123"
+          # 👈 连接目标 -h 改成了 postgres
+          command: ["psql", "-h", "postgres", "-U", "postgres", "-d", "loandb", "-f", "/init-sql/01_schema.sql"]
+          volumeMounts:
+            - name: sql-volume
+              mountPath: /init-sql
+      volumes:
+        - name: sql-volume
+          configMap:
+            name: pg-init-sql
+      restartPolicy: OnFailure

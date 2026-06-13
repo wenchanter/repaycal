@@ -1,0 +1,11 @@
+Name: calculator.rpc
+ListenOn: 0.0.0.0:8080
+Etcd:
+  Hosts:
+    - etcd:2379
+  Key: calculator.rpc
+
+Postgresql:
+  DataSource: postgres://postgres:pass123@postgres:5432/loandb?sslmode=disable
+
+Timeout: 5000
