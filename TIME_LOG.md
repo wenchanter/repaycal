@@ -22,7 +22,7 @@ Finally I decided to use go-zero, which is popular in China. However, it was the
 ### Need to improve
 1. I need more time to do more testing, which includes increasing code coverage and thinking about the edge cases. It would be better if I could introduce an automated testing framework to check code coverage and do the automated test.
 2. I need to understand go-zero more deeply, and read more core source code to see how it works, so that if there was an incident I can diagnose it quickly.
-3. I need to learn more about the loan business in order to design a more extensive system.   
+3. I need to learn more about the loan business in order to design a more extensive system. Actually, I considered using Strategy Pattern or Factory Pattern, but I found that different loan types have completely different calculation parameters, so I was not sure if they were useful for the system.   
 
 ### How I use AI
 1. I used AI to learn about the loan business.
